@@ -1,0 +1,6 @@
+BookNum,Surname,ID,Seats,From,To,Flight,Date,Gate,Time,TagNum,BaggageInfo,Meal,Check-in Status
+152220,Json,12345,D1,NEW YORK,HAWAII,AA204,14-Jun,B25,17:05,1,7KG_2_bag,null,null
+145550,Eason,67890,B2,BEI JING,TOKYO,YU556,15-Aug,B03,12:48,3,9KG_1_suitcase,null,null
+152650,Peter,18375,C1,NEW YORK,HAWAII,AA204,14-Jun,B25,17:05,21,5KG_2_tote,null,null
+123650,Paul,36421,D9,BEI JING,TOKYO,YU556,15-Aug,B03,12:48,0,null,null,null
+152669,Jackson,77569,F5,NEW YORK,HAWAII,AA204,14-Jun,B25,17:05,9,3KG_1_workstation,null,null
