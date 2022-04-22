@@ -23,6 +23,15 @@ public class userInfo {
     private String BaggageInfo;
     private String Meal;
     private String Status;
+    private int payment;
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
+    }
 
     private String[] paths;
     private static String tableHead;
@@ -144,7 +153,6 @@ public class userInfo {
     public void setStatus(String status) {
         this.Status = status;
     }
-
     public void readInfo(int BookingNum) {
         ReadAndWrite readAndWrite = new ReadAndWrite();
         this.paths = readAndWrite.createDataBase();
@@ -480,10 +488,11 @@ public class userInfo {
         return null;
     }
 
-    public void EditSeats(ArrayList<userInfo> users) {
+    public void EditSeatsAndMeal(ArrayList<userInfo> users) {
         for (userInfo u : users) {
             if (this.getID() == u.getID()) {
-                u.setID(this.ID);
+                u.setSeats(this.getSeats());
+                u.setMeal(this.getMeal());
             }
         }
     }

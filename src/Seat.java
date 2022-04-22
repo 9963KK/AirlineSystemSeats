@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class Seat extends JFrame {
     String seatsdata;
+
+    Seat(String seatsdata) {
+        this.seatsdata = seatsdata;
+    }
 
     public void setSeats(String seatsdata) {
         this.seatsdata = seatsdata;
@@ -35,13 +36,15 @@ public class Seat extends JFrame {
         }
     }
 
-    public int VIPOrNot(Seat seat) {
+    public int ChooseOrNot(Seat seat) {
         Coords temp = new Coords(seat);
         int result;
         if (temp.VIP()) {
             result = JOptionPane.showConfirmDialog(null, "You should pay $1000.", "Notice", JOptionPane.OK_OPTION, JOptionPane.NO_OPTION);
+
         } else {
             result = JOptionPane.showConfirmDialog(null, "You should pay $500.", "Notice", JOptionPane.OK_OPTION, JOptionPane.NO_OPTION);
+
         }
 
         return result;
@@ -98,16 +101,16 @@ public class Seat extends JFrame {
     }
 
     public void InitSeat(ArrayList<userInfo> users, userInfo user) throws IOException {
-        Seat s1 = this;
+        Seat s1 = new Seat(user.getSeats());
         JFrame frame = new JFrame();
         frame.setTitle("Seats");
         JPanel j1 = new JPanel();
         JPanel j2 = new JPanel();
         JPanel j3 = new JPanel();
         JPanel j4 = new JPanel();
-        MyJButton b1 = new MyJButton("Done", 1);
-        MyJButton b3 = new MyJButton("Print Straightly", 1);
-        MyJButton b2 = new MyJButton("Choose some food & drink", 1);
+        MyJButton b1 = new MyJButton("     Done     ", 1);
+        MyJButton b3 = new MyJButton("     Print Straightly     ", 1);
+        MyJButton b2 = new MyJButton("     Choose some food & drink     ", 1);
         JLabel[] jlarray = new JLabel[9];
         JLabel jl1 = new JLabel("A");
         JLabel jl2 = new JLabel("B");
@@ -182,18 +185,20 @@ public class Seat extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(userInfo.GetUserByID(user.getID(), users).getSeats());//获得当前用户的座位信息
-                if (VIPOrNot(s1) == 0) {
+                if (ChooseOrNot(s1) == 0) {
                     user.setSeats(s1.getSeats());
-                    user.EditSeats(users);
+                    user.setPayment(user.getPayment() + (Coords.VIP(user) ? 1000 : 500));
+                    user.EditSeatsAndMeal(users);
+                    frame.setVisible(false);
+                    new SeatsAndMealMenu(user, users);
                     System.out.println(userInfo.GetUserByID(user.getID(), users).getSeats());//修改后的信息
                 }
             }
         });// Button Done action
-        frame.setSize(400, 600);
+        frame.setSize(650, 600);
         frame.setLocation(600, 200);
         j2.setLayout(new GridLayout(0, 1));
         j3.setLayout((new GridLayout(0, 3)));
-        b1.setSize(30, 20);
         j1.add(b1);
         j1.add(b2);
         j1.add(b3);
@@ -207,10 +212,5 @@ public class Seat extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException {
-        Seat s1 = new Seat();
-        ArrayList<userInfo> users = userInfo.seatsInfo();
-        s1.InitSeat(users, userInfo.GetUserByID(12345, users));
-    }
 
 }
